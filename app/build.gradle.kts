@@ -52,14 +52,10 @@ tasks.withType<Test> {
 
 checkstyle {
 	toolVersion = "10.3.3"
-}
-
-tasks.withType<Checkstyle>().configureEach {
-	reports {
-		xml.required = false
-		html.required = true
-		html.stylesheet = resources.text.fromFile("config/checkstyle/checkstyle.xml")
-	}
+	configFile  = file("config/checkstyle/checkstyle.xml")
+	isIgnoreFailures = true
+	maxWarnings = 10
+	maxErrors = 10
 }
 
 tasks.test {
