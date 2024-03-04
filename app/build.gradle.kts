@@ -37,7 +37,7 @@ dependencies {
 	compileOnly("org.projectlombok:lombok:1.18.30")
 	annotationProcessor("org.projectlombok:lombok:1.18.30")
 	implementation("com.puppycrawl.tools:checkstyle:10.12.4")
-
+	implementation("org.postgresql:postgresql:42.7.1")
 
 	testImplementation("org.springframework.security:spring-security-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
