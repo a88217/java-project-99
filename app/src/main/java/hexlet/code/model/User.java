@@ -24,17 +24,14 @@ public class User implements BaseEntity {
     @GeneratedValue(strategy = IDENTITY)
     private long id;
 
-    @NotBlank
     private String firstName;
 
-    @NotBlank
     private String lastName;
 
     @Email
     @Column(unique = true)
     private String email;
 
-    @NotBlank
     private String passwordDigest;
 
     @CreatedDate

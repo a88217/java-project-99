@@ -46,8 +46,6 @@ public class UserControllerTest {
     @Autowired
     private ObjectMapper om;
 
-    private JwtRequestPostProcessor token;
-
     private User testUser;
 
     @BeforeEach
@@ -59,7 +57,7 @@ public class UserControllerTest {
 
     @Test
     public void testIndex() throws Exception {
-        mockMvc.perform(get("/api/users").with(jwt()))
+        mockMvc.perform(get("/api/users"))
                 .andExpect(status().isOk());
     }
 

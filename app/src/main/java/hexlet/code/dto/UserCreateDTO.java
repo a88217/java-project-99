@@ -9,13 +9,12 @@ import lombok.Setter;
 @Getter
 public class UserCreateDTO {
 
-    @NotNull
     private String firstName;
-    @NotNull
+
     private String lastName;
     @Email
     private String email;
-    @NotNull
+
     private String passwordDigest;
 
 }
