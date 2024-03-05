@@ -31,7 +31,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("org.springframework.boot:spring-boot-devtools")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	implementation("net.datafaker:datafaker:2.0.2")
+	implementation("net.datafaker:datafaker:2.1.0")
 	implementation("org.instancio:instancio-junit:3.3.1")
 	implementation("org.openapitools:jackson-databind-nullable:0.2.6")
 	compileOnly("org.projectlombok:lombok:1.18.30")
@@ -44,6 +44,10 @@ dependencies {
 	testImplementation(platform("org.junit:junit-bom:5.10.0"))
 	testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
 	testImplementation("net.javacrumbs.json-unit:json-unit-assertj:3.2.2")
+	testImplementation("net.datafaker:datafaker:2.1.0")
+	testImplementation("org.instancio:instancio-junit:3.3.1")
+	testCompileOnly("org.projectlombok:lombok:1.18.30")
+	testAnnotationProcessor("org.projectlombok:lombok:1.18.30")
 }
 
 tasks.withType<Test> {
