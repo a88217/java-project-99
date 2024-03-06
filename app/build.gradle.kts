@@ -22,7 +22,9 @@ repositories {
 }
 
 dependencies {
-
+	compileOnly("org.projectlombok:lombok:1.18.30")
+	annotationProcessor("org.projectlombok:lombok:1.18.30")
+	implementation("org.openapitools:jackson-databind-nullable:0.2.6")
 	implementation("org.mapstruct:mapstruct:1.5.5.Final")
 	annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
 	runtimeOnly("com.h2database:h2")
@@ -33,12 +35,10 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("net.datafaker:datafaker:2.1.0")
 	implementation("org.instancio:instancio-junit:3.3.1")
-	implementation("org.openapitools:jackson-databind-nullable:0.2.6")
-	compileOnly("org.projectlombok:lombok:1.18.30")
-	annotationProcessor("org.projectlombok:lombok:1.18.30")
 	implementation("com.puppycrawl.tools:checkstyle:10.12.4")
 	implementation("org.postgresql:postgresql:42.7.1")
 
+	testCompileOnly("org.projectlombok:lombok:1.18.30")
 	testImplementation("org.springframework.security:spring-security-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation(platform("org.junit:junit-bom:5.10.0"))
@@ -46,7 +46,7 @@ dependencies {
 	testImplementation("net.javacrumbs.json-unit:json-unit-assertj:3.2.2")
 	testImplementation("net.datafaker:datafaker:2.1.0")
 	testImplementation("org.instancio:instancio-junit:3.3.1")
-	testCompileOnly("org.projectlombok:lombok:1.18.30")
+
 	testAnnotationProcessor("org.projectlombok:lombok:1.18.30")
 }
 
