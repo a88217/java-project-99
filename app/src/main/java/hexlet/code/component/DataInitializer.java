@@ -21,10 +21,13 @@ public class DataInitializer implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        var userData = new UserCreateDTO();
-        userData.setEmail("hexlet@example.com");
-        userData.setPasswordDigest("qwerty");
-        var user = userMapper.map(userData);
-        userRepository.save(user);
+
+        if (userRepository.findByEmail("hexlet@example.com").isEmpty()) {
+            var userData = new UserCreateDTO();
+            userData.setEmail("hexlet@example.com");
+            userData.setPasswordDigest("qwerty");
+            var user = userMapper.map(userData);
+            userRepository.save(user);
+        }
     }
 }
