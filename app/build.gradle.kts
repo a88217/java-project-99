@@ -28,15 +28,18 @@ dependencies {
 	implementation("org.mapstruct:mapstruct:1.5.5.Final")
 	annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
 	runtimeOnly("com.h2database:h2")
+	implementation("net.datafaker:datafaker:2.1.0")
+	implementation("org.instancio:instancio-junit:3.3.1")
+	implementation("com.puppycrawl.tools:checkstyle:10.12.4")
+	implementation("org.postgresql:postgresql:42.7.1")
 	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("org.springframework.boot:spring-boot-devtools")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	implementation("net.datafaker:datafaker:2.1.0")
-	implementation("org.instancio:instancio-junit:3.3.1")
-	implementation("com.puppycrawl.tools:checkstyle:10.12.4")
-	implementation("org.postgresql:postgresql:42.7.1")
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
+
 
 	testCompileOnly("org.projectlombok:lombok:1.18.30")
 	testImplementation("org.springframework.security:spring-security-test")
@@ -46,7 +49,6 @@ dependencies {
 	testImplementation("net.javacrumbs.json-unit:json-unit-assertj:3.2.2")
 	testImplementation("net.datafaker:datafaker:2.1.0")
 	testImplementation("org.instancio:instancio-junit:3.3.1")
-
 	testAnnotationProcessor("org.projectlombok:lombok:1.18.30")
 }
 
