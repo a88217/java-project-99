@@ -19,8 +19,6 @@ RUN mkdir /project/code
 
 ENV GRADLE_USER_HOME /project/.gradle
 
-COPY java-project-99/. .
-
 RUN gradle installDist
 
 CMD build/install/java-project-99/bin/java-project-99
