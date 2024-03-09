@@ -26,10 +26,7 @@ public class DataInitializer implements ApplicationRunner {
             var userData = new UserCreateDTO();
             userData.setEmail("hexlet@example.com");
             userData.setPassword("qwerty");
-            System.out.println("password before mapping " + userData.getPassword());
             var user = userMapper.map(userData);
-            System.out.println("password after mapping " + user.getPasswordDigest());
-            System.out.println("password after mapping " + user.getPassword());
             userRepository.save(user);
         }
     }
