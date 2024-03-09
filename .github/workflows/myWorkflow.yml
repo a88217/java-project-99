@@ -18,7 +18,6 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build
-          build-root-directory: java-project-99
       - name: Publish code coverage
         uses: paambaati/codeclimate-action@v5.0.0
         env:
@@ -26,4 +25,4 @@ jobs:
           JACOCO_SOURCE_PATH: src/main/java
         with:
           coverageCommand: make report
-          coverageLocations: ${{github.workspace}}/app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
+          coverageLocations: ${{github.workspace}}/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
