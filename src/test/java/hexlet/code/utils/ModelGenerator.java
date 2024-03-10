@@ -1,5 +1,6 @@
 package hexlet.code.utils;
 
+import hexlet.code.model.TaskStatus;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import net.datafaker.Faker;
@@ -15,6 +16,7 @@ import hexlet.code.model.User;
 public class ModelGenerator {
 
     private Model<User> userModel;
+    private Model<TaskStatus> taskStatusModel;
 
     @Autowired
     private Faker faker;
@@ -27,5 +29,12 @@ public class ModelGenerator {
                 .ignore(Select.field(User::getUpdatedAt))
                 .supply(Select.field(User::getEmail), () -> faker.internet().emailAddress())
                 .toModel();
+
+        taskStatusModel = Instancio.of(TaskStatus.class)
+                .ignore(Select.field(TaskStatus::getId))
+                .ignore(Select.field(TaskStatus::getCreatedAt))
+                .toModel();
     }
+
+
 }
