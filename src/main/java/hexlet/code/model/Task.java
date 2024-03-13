@@ -1,6 +1,5 @@
 package hexlet.code.model;
 
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -15,14 +14,14 @@ import java.time.LocalDate;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
+@Entity
 @Getter
 @Setter
-@Entity
+@Table(name = "tasks")
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "task_statuses")
 @ToString(onlyExplicitlyIncluded = true)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class TaskStatus implements BaseEntity{
+public class Task implements BaseEntity{
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -30,19 +29,24 @@ public class TaskStatus implements BaseEntity{
     @EqualsAndHashCode.Include
     private Long id;
 
-    @Size(min = 1)
-    @Column(unique = true)
     @NotBlank
     @ToString.Include
     private String name;
 
-    @Size(min = 1)
-    @Column(unique = true)
-    @NotBlank
     @ToString.Include
-    private String slug;
+    private Integer index;
+
+    @ToString.Include
+    private String description;
+
+    @ToString.Include
+    @ManyToOne(fetch = FetchType.EAGER)
+    private TaskStatus taskStatus;
+
+    @ToString.Include
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User assignee;
 
     @CreatedDate
     private LocalDate createdAt;
-
 }
