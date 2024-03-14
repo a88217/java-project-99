@@ -10,4 +10,4 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/804ee666f011e17c4fb0/test_coverage)](https://codeclimate.com/github/a88217/java-project-99/test_coverage)
 
 ### [Deploy application](https://java-project-99-xvqp.onrender.com)
-### [Interactive documentation](https://java-project-99-xvqp.onrender.com/swagger-ui/index.html)
+### [Interactive documentation](https://java-project-99-xvqp.onrender.com/swagger-ui.html)
