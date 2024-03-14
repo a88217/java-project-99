@@ -2,10 +2,12 @@ package hexlet.code.controller.api;
 
 import hexlet.code.dto.tasks.TaskCreateDTO;
 import hexlet.code.dto.tasks.TaskDTO;
+import hexlet.code.dto.tasks.TaskParamsDTO;
 import hexlet.code.dto.tasks.TaskUpdateDTO;
 import hexlet.code.exception.ResourceNotFoundException;
 import hexlet.code.mapper.TaskMapper;
 import hexlet.code.repository.TaskRepository;
+import hexlet.code.specification.TaskSpecification;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,12 +26,13 @@ public class TaskController {
     @Autowired
     private TaskMapper taskMapper;
 
+    @Autowired
+    private TaskSpecification taskSpecification;
+
     @GetMapping(path = "")
-    public ResponseEntity<List<TaskDTO>> index() {
-        var tasks = taskRepository.findAll();
-        var result = tasks.stream()
-                .map(p -> taskMapper.map(p))
-                .toList();
+    public ResponseEntity<List<TaskDTO>> index(TaskParamsDTO params) {
+        var spec = taskSpecification.build(params);
+        var result = taskMapper.map(taskRepository.findAll(spec));
         return ResponseEntity.ok()
                 .header("X-Total-Count", String.valueOf(result.size()))
                 .body(result);

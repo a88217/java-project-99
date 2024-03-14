@@ -105,6 +105,21 @@ public class TaskControllerTest {
     }
 
     @Test
+    public void testIndexWithParams() throws Exception {
+        var request = get("/api/tasks?"
+                + "titleCont=" + "Name"
+                + "&assigneeId=" + 123
+                + "&status=" + "Slug"
+                + "&labelId=" + 123)
+                .with(token);
+        var result = mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andReturn();
+        var body = result.getResponse().getContentAsString();
+        assertThatJson(body).isArray().hasSize(0);
+    }
+
+    @Test
     public void testShow() throws Exception {
         var request = get("/api/tasks/" + testTask.getId())
                 .with(token);
