@@ -11,6 +11,7 @@ import org.instancio.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import hexlet.code.model.User;
+import hexlet.code.model.Label;
 
 @Getter
 @Component
@@ -19,6 +20,7 @@ public class ModelGenerator {
     private Model<User> userModel;
     private Model<TaskStatus> taskStatusModel;
     private Model<Task> taskModel;
+    private Model<Label> labelModel;
 
     @Autowired
     private Faker faker;
@@ -45,6 +47,12 @@ public class ModelGenerator {
                 .ignore(Select.field(Task::getTaskStatus))
                 .ignore(Select.field(Task::getAssignee))
                 .ignore(Select.field(Task::getCreatedAt))
+                .toModel();
+
+        labelModel = Instancio.of(Label.class)
+                .ignore(Select.field(Label::getId))
+                .supply(Select.field(Label::getName), () -> faker.text().text(3, 1000))
+                .ignore(Select.field(Label::getCreatedAt))
                 .toModel();
     }
 

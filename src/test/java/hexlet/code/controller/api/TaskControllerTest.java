@@ -3,9 +3,11 @@ package hexlet.code.controller.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hexlet.code.dto.tasks.TaskCreateDTO;
 import hexlet.code.dto.tasks.TaskUpdateDTO;
+import hexlet.code.model.Label;
 import hexlet.code.model.User;
 import hexlet.code.model.Task;
 import hexlet.code.model.TaskStatus;
+import hexlet.code.repository.LabelRepository;
 import hexlet.code.repository.TaskRepository;
 import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.repository.UserRepository;
@@ -22,6 +24,8 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MockMvc;
 import java.time.format.DateTimeFormatter;
+import java.util.Set;
+
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -52,11 +56,16 @@ public class TaskControllerTest {
     @Autowired
     private ModelGenerator modelGenerator;
 
+    @Autowired
+    private LabelRepository labelRepository;
+
     private User testUser;
 
     private TaskStatus testTaskStatus;
 
     private Task testTask;
+
+    private Label testLabel;
 
     private SecurityMockMvcRequestPostProcessors.JwtRequestPostProcessor token;
 
@@ -66,9 +75,12 @@ public class TaskControllerTest {
         userRepository.save(testUser);
         testTaskStatus = Instancio.of(modelGenerator.getTaskStatusModel()).create();
         taskStatusRepository.save(testTaskStatus);
+        testLabel = Instancio.of(modelGenerator.getLabelModel()).create();
+        labelRepository.save(testLabel);
         testTask = Instancio.of(modelGenerator.getTaskModel()).create();
         testTask.setAssignee(testUser);
         testTask.setTaskStatus(testTaskStatus);
+        testTask.setLabels(Set.of(testLabel));
         taskRepository.save(testTask);
         token = jwt().jwt(builder -> builder.subject(testUser.getEmail()));
     }
@@ -78,6 +90,7 @@ public class TaskControllerTest {
         taskRepository.deleteAll();
         taskStatusRepository.deleteAll();
         userRepository.deleteAll();
+        labelRepository.deleteAll();
     }
 
     @Test
@@ -107,8 +120,9 @@ public class TaskControllerTest {
                 a -> a.node("status").isEqualTo(testTaskStatus.getSlug()),
                 a -> a.node("assignee_id").isEqualTo(testUser.getId()),
                 a -> a.node("createdAt").isEqualTo(testTask.getCreatedAt()
-                        .format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
-                );
+                        .format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))),
+                a -> a.node("taskLabelIds").isEqualTo(Set.of(testLabel.getId()))
+        );
     }
 
     @Test
@@ -117,6 +131,8 @@ public class TaskControllerTest {
         userRepository.save(newUser);
         var newTaskStatus = Instancio.of(modelGenerator.getTaskStatusModel()).create();
         taskStatusRepository.save(newTaskStatus);
+        var newLabel = Instancio.of(modelGenerator.getLabelModel()).create();
+        labelRepository.save(newLabel);
         var newTask = Instancio.of(modelGenerator.getTaskModel()).create();
         var data = new TaskCreateDTO();
         data.setTitle(newTask.getName());
@@ -124,6 +140,7 @@ public class TaskControllerTest {
         data.setContent(newTask.getDescription());
         data.setStatus(newTaskStatus.getSlug());
         data.setAssigneeId(newUser.getId());
+        data.setTaskLabelIds(Set.of(newLabel.getId()));
         var request = post("/api/tasks")
                 .with(token)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -136,6 +153,7 @@ public class TaskControllerTest {
         assertThat(task.getDescription()).isEqualTo(newTask.getDescription());
         assertThat(task.getTaskStatus()).isEqualTo(newTaskStatus);
         assertThat(task.getAssignee()).isEqualTo(newUser);
+        assertThat(task.getLabels()).isEqualTo(Set.of(newLabel));
     }
 
     @Test
