@@ -4,6 +4,7 @@ plugins {
 	application
 	id("org.springframework.boot") version "3.2.1-SNAPSHOT"
 	id("io.spring.dependency-management") version "1.1.4"
+	id("io.sentry.jvm.gradle") version "4.1.0"
 	checkstyle
 	jacoco
 }
@@ -85,4 +86,15 @@ tasks.jacocoTestReport {
 		html.outputLocation = layout.buildDirectory.dir("reports/jacoco")
 	}
 }
+
+sentry {
+	val env = System.getenv("APP_ENV")
+	if (env != null && env.contentEquals("prod")) {
+		includeSourceContext = true
+		org = "aleksandr-muzalev"
+		projectName = "java-project-99"
+		authToken = System.getenv("SENTRY_AUTH_TOKEN")
+	}
+}
+
 
