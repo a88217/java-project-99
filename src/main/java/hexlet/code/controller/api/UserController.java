@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -58,27 +59,19 @@ public class UserController {
     }
 
     @PutMapping(path = "/{id}")
+    @PreAuthorize("@userUtils.isCurrentUser(#id)")
     public UserDTO update(@Valid @RequestBody UserUpdateDTO userData, @PathVariable Long id) {
-        var currentUser = userUtils.getCurrentUser();
-        if (currentUser.getId() == id) {
             var user =  userRepository.findById(id)
                     .orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));
             userMapper.update(userData, user);
             userRepository.save(user);
             return userMapper.map(user);
-        } else {
-            throw new AccessDeniedException("Access denied");
-        }
     }
 
     @DeleteMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("@userUtils.isCurrentUser(#id)")
     public void delete(@PathVariable Long id) {
-        var currentUser = userUtils.getCurrentUser();
-        if (currentUser.getId() == id) {
             userRepository.deleteById(id);
-        } else {
-            throw new AccessDeniedException("Access denied");
-        }
     }
 }
