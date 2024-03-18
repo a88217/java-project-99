@@ -68,17 +68,17 @@ public class UserController {
     @PutMapping(path = "/{id}")
     @PreAuthorize("@userUtils.isCurrentUser(#id)")
     public UserDTO update(@Valid @RequestBody UserUpdateDTO userData, @PathVariable Long id) {
-            var user =  userRepository.findById(id)
-                    .orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));
-            userMapper.update(userData, user);
-            userRepository.save(user);
-            return userMapper.map(user);
+        var user =  userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));
+        userMapper.update(userData, user);
+        userRepository.save(user);
+        return userMapper.map(user);
     }
 
     @DeleteMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("@userUtils.isCurrentUser(#id)")
     public void delete(@PathVariable Long id) {
-            userRepository.deleteById(id);
+        userRepository.deleteById(id);
     }
 }

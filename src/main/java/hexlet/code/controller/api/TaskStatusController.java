@@ -60,11 +60,11 @@ public class TaskStatusController {
 
     @PutMapping(path = "/{id}")
     public TaskStatusDTO update(@Valid @RequestBody TaskStatusUpdateDTO taskStatusData, @PathVariable Long id) {
-            var taskStatus =  taskStatusRepository.findById(id)
-                    .orElseThrow(() -> new ResourceNotFoundException("Task status with id " + id + " not found"));
-            taskStatusMapper.update(taskStatusData, taskStatus);
-            taskStatusRepository.save(taskStatus);
-            return taskStatusMapper.map(taskStatus);
+        var taskStatus =  taskStatusRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Task status with id " + id + " not found"));
+        taskStatusMapper.update(taskStatusData, taskStatus);
+        taskStatusRepository.save(taskStatus);
+        return taskStatusMapper.map(taskStatus);
     }
 
     @DeleteMapping(path = "/{id}")
