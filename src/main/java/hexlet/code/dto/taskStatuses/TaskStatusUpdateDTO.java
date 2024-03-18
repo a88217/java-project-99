@@ -12,12 +12,10 @@ import org.openapitools.jackson.nullable.JsonNullable;
 @Setter
 public class TaskStatusUpdateDTO {
 
-    @Column(unique = true)
     @Size(min = 1)
     @NotBlank
     private JsonNullable<String> name;
 
-    @Column(unique = true)
     @Size(min = 1)
     @NotBlank
     private JsonNullable<String> slug;

@@ -10,6 +10,5 @@ import org.openapitools.jackson.nullable.JsonNullable;
 @Getter
 public class LabelUpdateDTO {
     @Size(min = 3, max = 1000)
-    @Column(unique = true)
     private JsonNullable<String> name;
 }

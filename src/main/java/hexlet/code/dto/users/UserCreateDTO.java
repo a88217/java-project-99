@@ -12,7 +12,6 @@ import lombok.Setter;
 public class UserCreateDTO {
 
     @Email
-    @Column(unique = true)
     private String email;
 
     private String firstName;
