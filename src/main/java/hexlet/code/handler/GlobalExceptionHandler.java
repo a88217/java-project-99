@@ -19,4 +19,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public String generalExceptionHandler(Exception exception) {
         return exception.getMessage();
     }
+
+
 }
