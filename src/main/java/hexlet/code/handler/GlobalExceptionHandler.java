@@ -15,10 +15,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 
-    @ExceptionHandler(Exception.class)
-    public String generalExceptionHandler(Exception exception) {
-        return exception.getMessage();
-    }
-
+//    @ExceptionHandler(Exception.class)
+//    public String generalExceptionHandler(Exception exception) {
+//        return exception.getMessage();
+//    }
 
 }
