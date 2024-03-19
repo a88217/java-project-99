@@ -39,7 +39,7 @@ public class TaskService {
         return taskMapper.map(task);
     }
 
-    public TaskDTO update(TaskUpdateDTO taskData,Long id) {
+    public TaskDTO update(TaskUpdateDTO taskData, Long id) {
         var taskStatus =  taskRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Task with id " + id + " not found"));
         taskMapper.update(taskData, taskStatus);
