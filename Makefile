@@ -18,6 +18,9 @@ run-dist:
 run:
 	./gradlew run
 
+start:
+	./gradlew bootRun --args='--spring.profiles.active=development'
+
 test:
 	./gradlew test
 
