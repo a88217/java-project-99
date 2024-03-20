@@ -8,7 +8,6 @@ import hexlet.code.repository.LabelRepository;
 import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -30,16 +29,12 @@ public class DataInitializer implements ApplicationRunner {
             getLabel("feature"),
             getLabel("bug"));
 
-    @Autowired
     private final UserRepository userRepository;
 
-    @Autowired
     private final TaskStatusRepository taskStatusRepository;
 
-    @Autowired
     private final LabelRepository labelRepository;
 
-    @Autowired
     private final UserMapper userMapper;
 
     @Override

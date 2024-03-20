@@ -19,8 +19,6 @@ public class UserService {
 
     private final UserMapper userMapper;
 
-    private final UserUtils userUtils;
-
     public List<UserDTO> index() {
         var users = userRepository.findAll();
         return users.stream()
